@@ -2,11 +2,11 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import request from 'supertest';
 import { createRequire } from 'module';
 
-// 1. EL TRUCO DEL MILLÓN: 
-// Forzamos a Vitest a usar el mismo sistema de memoria que tu backend
+
+// Forzamos a Vitest a usar el mismo sistema de memoria
 const require = createRequire(import.meta.url);
 
-// 2. Apagamos la base de datos interceptando el archivo de configuración
+
 vi.mock('../config/database', () => {
   const mockDB = {
     sync: vi.fn().mockResolvedValue(true),
@@ -15,12 +15,10 @@ vi.mock('../config/database', () => {
   return { default: mockDB, ...mockDB };
 });
 
-// 3. IMPORTAMOS USANDO REQUIRE (no import). 
-// ¡Esto garantiza que atrapamos la misma instancia exacta que usa tu controlador!
 const donacionRepository = require('../repositories/donacionRepository');
 const app = require('../app');
 
-describe('Microservicio - API de Donaciones (Bitcoin Edition)', () => {
+describe('Microservicio - API de Donaciones', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();

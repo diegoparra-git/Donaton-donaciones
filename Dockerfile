@@ -16,6 +16,7 @@ COPY controllers ./controllers
 COPY models ./models
 COPY repositories ./repositories
 COPY routes ./routes
+COPY config ./config
 COPY .env ./
 
 EXPOSE 3001
